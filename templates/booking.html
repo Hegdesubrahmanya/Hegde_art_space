@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking | Hegde Art Space</title>
+</head>
+<body>
+
+<h2>Book Your Program</h2>
+
+<form action="/submit" method="POST">
+
+    <label>Name:</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <label>Program:</label><br>
+    <select name="program" required>
+        <option value="Hindustani Music">Hindustani Music</option>
+        <option value="Carnatic Music">Carnatic Music</option>
+        <option value="Dance">Dance</option>
+    </select><br><br>
+
+    <label>Phone:</label><br>
+    <input type="text" name="phone" required><br><br>
+
+    <!-- ✅ CALENDAR INPUT -->
+    <label>Booking Date:</label><br>
+    <input type="date" name="booking_date" required><br><br>
+
+    <button type="submit">Book & Print Receipt</button>
+
+</form>
+
+</body>
+</html>

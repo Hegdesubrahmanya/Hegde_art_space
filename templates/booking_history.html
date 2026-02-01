@@ -1,0 +1,24 @@
+<h2>📜 Booking History - Hegde Art Space</h2>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Name</th>
+        <th>Program</th>
+        <th>Phone</th>
+        <th>Date</th>
+        <th>Charge</th>
+    </tr>
+
+    {% for b in bookings %}
+    <tr>
+        <td>{{ b[0] }}</td>
+        <td>{{ b[1] }}</td>
+        <td>{{ b[2] }}</td>
+        <td>{{ b[3] }}</td>
+        <td>₹{{ b[4] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+<a href="/">⬅ Back to Home</a>
