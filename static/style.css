@@ -5,7 +5,7 @@ body {
 }
 
 h1 {
-    color: #5a2d82;
+    color: #4105f6;
 }
 
 a {
@@ -16,4 +16,58 @@ a {
     color: white;
     text-decoration: none;
     border-radius: 5px;
+}
+
+/* HERO SECTION */
+.hero {
+    height: 100vh;
+    background-image: url("images/home.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.6);
+    height: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.overlay h1 {
+    font-size: 48px;
+}
+
+.overlay p {
+    font-size: 20px;
+    margin: 10px 0 20px;
+}
+
+.btn {
+    background: #ff9800;
+    padding: 12px 25px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #222;
+    padding: 10px;
+    text-align: center;
+}
+
+.navbar a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+/* CONTENT */
+.content {
+    padding: 30px;
 }
