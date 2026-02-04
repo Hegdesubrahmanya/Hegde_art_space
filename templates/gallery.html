@@ -1,5 +1,17 @@
 <h1>Gallery</h1>
 
-<img src="{{ url_for('static', filename='images/stage.jpg') }}" width="300">
-<img src="{{ url_for('static', filename='images/dance.jpg') }}" width="300">
-<img src="{{ url_for('static', filename='images/music.jpg') }}" width="300">
+ <div class="gallery-item">
+        <img src="{{ url_for('static', filename='images/stage.jpg') }}" width="1000" alt="Hindustani Program">
+        <p>Hegde art space stage</p>
+    </div>
+
+ <div class="gallery-item">
+        <img src="{{ url_for('static', filename='images/music.jpg') }}" alt="Hindustani Program">
+        <p>Hindustani Music Program</p>
+    </div>
+  <div class="gallery-item">
+        <img src="{{ url_for('static', filename='images/carnatic.jpg') }}" alt="Hindustani Program">
+        <p>Carnatic Music Program</p>
+    </div>
+
+<!-- <img src="{{ url_for('static', filename='images/music.jpg') }}" width="300"> -->
