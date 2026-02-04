@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h2>Booking History</h2>
+    <a href="/admin/logout">Logout</a>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Program</th>
+            <th>Phone</th>
+            <th>Date</th>
+            <th>Charge</th>
+        </tr>
+        {% for b in bookings %}
+        <tr>
+            <td>{{ b.name }}</td>
+            <td>{{ b.program }}</td>
+            <td>{{ b.phone }}</td>
+            <td>{{ b.booking_date }}</td>
+            <td>{{ b.charge }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
