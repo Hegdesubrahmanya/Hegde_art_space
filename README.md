@@ -1,4 +1,4 @@
-# Hegde Art Space 🎶💃
+# Hegde Art Space 
 
 An online booking system for music and dance programs, built using **Python (Flask)**, **HTML**, **CSS**.  
 This project allows users to book Hindustani, Carnatic, and dance programs, and generates a booking receipt.  
