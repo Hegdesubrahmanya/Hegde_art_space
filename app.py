@@ -1,23 +1,14 @@
 from flask import session, redirect, url_for
 from flask import Flask, render_template, request
-
-# 🔹 ADDED: MySQL import
-import mysql.connector
+import sqlite3
 
 app = Flask(__name__)
 app.secret_key = "hegde_art_space_secret"
 
-# 🔹 ADDED: MySQL connection
-db = mysql.connector.connect(
-    host="127.0.0.1",
-    user="root",
-    password="root123",
-    database="hegde_art_space",
-    port=3307
-)
-
-# 🔹 ADDED: Cursor
-cursor = db.cursor(dictionary=True)
+def get_db_connection():
+    conn = sqlite3.connect("database.db")
+    conn.row_factory = sqlite3.Row
+    return conn
 
 
 @app.route("/")
@@ -58,11 +49,13 @@ def submit():
     booking_date = request.form["booking_date"]
     charge = 21000
 
-    cursor.execute(
-        "INSERT INTO bookings (name, program, phone, booking_date, charge) VALUES (%s, %s, %s, %s, %s)",
+    conn = get_db_connection()
+    conn.execute(
+        "INSERT INTO bookings (name, program, phone, booking_date, charge) VALUES (?, ?, ?, ?, ?)",
         (name, program, phone, booking_date, charge)
     )
-    db.commit()
+    conn.commit()
+    conn.close()
 
     return render_template(
         "receipt.html",
@@ -76,20 +69,11 @@ def submit():
 
 @app.route("/db-test")
 def db_test():
-    cursor.execute("SELECT DATABASE();")
-    result = cursor.fetchone()
-    return f"Connected to DB: {result}"
+    conn = get_db_connection()
+    conn.execute("SELECT 1")
+    conn.close()
+    return "SQLite Connected Successfully"
 
-@app.route("/history")
-def booking_history():
-    bookings = []
-
-    with open("bookings.csv", "r") as file:
-        lines = file.readlines()[1:]  # skip header
-        for line in lines:
-            bookings.append(line.strip().split(","))
-
-    return render_template("booking_history.html", bookings=bookings)
 
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():
@@ -97,11 +81,12 @@ def admin_login():
         username = request.form["username"]
         password = request.form["password"]
 
-        cursor.execute(
-            "SELECT * FROM admin_users WHERE username=%s AND password=%s",
+        conn = get_db_connection()
+        admin = conn.execute(
+            "SELECT * FROM admin_users WHERE username=? AND password=?",
             (username, password)
-        )
-        admin = cursor.fetchone()
+        ).fetchone()
+        conn.close()
 
         if admin:
             session["admin_logged_in"] = True
@@ -111,20 +96,24 @@ def admin_login():
 
     return render_template("admin_login.html")
 
+
 @app.route("/admin/dashboard")
 def admin_dashboard():
     if not session.get("admin_logged_in"):
         return redirect(url_for("admin_login"))
 
-    cursor.execute("SELECT * FROM bookings")
-    bookings = cursor.fetchall()
+    conn = get_db_connection()
+    bookings = conn.execute("SELECT * FROM bookings").fetchall()
+    conn.close()
 
     return render_template("admin_dashboard.html", bookings=bookings)
+
 
 @app.route("/admin/logout")
 def admin_logout():
     session.clear()
     return redirect(url_for("admin_login"))
 
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
